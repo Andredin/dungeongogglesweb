@@ -2,19 +2,15 @@
 
 # dependencies
 /node_modules
-/client/node_modules
+/web/node_modules
 /.pnp
-/client/.pnp
 .pnp.js
-/client/pnp.js
 
 # testing
 /coverage
-/client/coverage
 
 # production
 /build
-/client/build
 
 # misc
 .DS_Store
