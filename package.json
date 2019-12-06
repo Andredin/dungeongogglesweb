@@ -1,0 +1,27 @@
+{
+  "name": "dungeongogglesweb",
+  "version": "0.0.1",
+  "description": "DungeonGogglesServer",
+  "main": "server.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andredin/dungeongogglesweb.git"
+  },
+  "author": "Andredin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Andredin/dungeongogglesweb/issues"
+  },
+  "homepage": "https://github.com/Andredin/dungeongogglesweb#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
