@@ -14,8 +14,6 @@ app.get('/', (req, res) => {
     res.send("Index");
 });
 
-app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
-
 app.post('/api/create', async (req, res) => await create(req, res));
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

@@ -3,6 +3,9 @@ html, body, div#root {
 }
 
 body {
-  text-align: center;
   margin: 0;
+}
+
+.title {
+    flex-grow: 1;
 }
