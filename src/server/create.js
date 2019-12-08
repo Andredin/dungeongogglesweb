@@ -1,5 +1,6 @@
 const uuid = require('uuid/v4');
 const db = require('./db');
+const { Firestore } = require('@google-cloud/firestore');
 
 exports.create = async (req, res) => {
     const url = req.body.url;
@@ -10,12 +11,15 @@ exports.create = async (req, res) => {
 
     try {
         const dmId = uuid();
-        const document = db.doc(`maps/map-${dmId}`);
+        console.log(Firestore)
+        const now = new Date();
+        const document = db.doc(`maps/map-${now.getTime()}-${dmId}`);
     
         await document.set({
             dmId: dmId,
             playerId: uuid(),
-            url
+            url,
+            created: Firestore.Timestamp.fromDate(now)
         });
 
         res.send({ dmId });

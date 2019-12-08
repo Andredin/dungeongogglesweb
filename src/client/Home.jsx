@@ -17,7 +17,7 @@ export const Home = () => {
             body: JSON.stringify(data)
         });
         const mapData = await res.json();
-        history.push(`/dm/${mapData.idDm}`);
+        history.push(`/dm/${mapData.dmId}`);
     }
 
     return (

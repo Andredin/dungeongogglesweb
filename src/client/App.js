@@ -21,7 +21,7 @@ export default class App extends Component {
                         <Route exact path='/'>
                             <Home />
                         </Route>
-                        <Route path='/dm/:dmId'>
+                        <Route exact path='/dm/:dmId'>
                             <Map />
                         </Route>
                     </Switch>

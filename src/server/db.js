@@ -11,8 +11,7 @@ if(!fs.existsSync(process.env.GOOGLE_APPLICATION_CREDENTIALS)) {
 const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS); 
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://dungeon-goggles.firebaseio.com'
+    credential: admin.credential.cert(serviceAccount)
 });
 
 module.exports = admin.firestore();
