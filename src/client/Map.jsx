@@ -13,7 +13,8 @@ let subscribed = false;
 export const Map = () => {
     const { dmId } = useParams()
     const [grid, setGrid] = useState([[1, 1, 1, 1, 1], [0, 1, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0]])
-    const [mapData, setMapData] = useState(null);
+    const [url, setUrl] = useState(null);
+    const [playerId, setPlayerId] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -24,28 +25,27 @@ export const Map = () => {
         //         setError(dbError);
         //         return;
         //     }
-        //     setMapData(dbMap);
+        //     console.log(dbMap);
+        //     setUrl(dbMap.url);
+        //     setPlayerId(dbMap.playerId);
         // });
 
-        setMapData({
-            dmId,
-            url: 'https://i.pinimg.com/originals/76/af/fc/76affcc8c6157a3a9a1a5424a87ab57d.jpg',
-            playerId: '1234'
-        });
+        setUrl('https://i.pinimg.com/originals/76/af/fc/76affcc8c6157a3a9a1a5424a87ab57d.jpg');
+        setPlayerId('1234');
     });
 
     const copyLink = () => {
         const el = document.createElement('textarea');
-        el.value = 'TODOLINK/' + mapData.playerId;
+        el.value = 'TODOLINK/' + playerId;
         document.body.appendChild(el);
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
     }
 
-    const title = `Dungeon Goggles (DM) ${mapData || error ? '': 'loading ...'}`;
+    const title = `Dungeon Goggles (DM) ${url || error ? '': 'loading ...'}`;
 
-    const playerMapLink = mapData && mapData.playerId && (
+    const playerMapLink = playerId && (
         <Tooltip title='Copy Player Link'>
             <IconButton color='inherit' onClick={copyLink}>
                 <Badge color='secondary'>
