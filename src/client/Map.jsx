@@ -8,36 +8,44 @@ import { Grid, AppBar, Toolbar, Typography, Tooltip, Badge, IconButton } from '@
 import { paper, Group, Item, Layer, Path, PointText, Raster, Point } from 'paper/dist/paper-core'
 import { Rectangle } from 'paper';
 
+let subscribed = false;
+
 export const Map = () => {
     const { dmId } = useParams()
-    const [playerId, setPlayerId] = useState(null)
     const [grid, setGrid] = useState([[1, 1, 1, 1, 1], [0, 1, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0]])
-    const [url, setUrl] = useState(null);
+    const [mapData, setMapData] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchMap = async () => {
-            // const map = await db.getDmMap(dmId);
-            // setUrl(map.url);
-            // setPlayerId(map.playerId);
-            setUrl('https://i.pinimg.com/originals/76/af/fc/76affcc8c6157a3a9a1a5424a87ab57d.jpg');
-            setPlayerId('1234');
-            drawMap();
-        }
-        fetchMap();
+        if(subscribed) return;
+        subscribed = true;
+        // db.subscribeToDmMap(dmId, (dbError, dbMap) => {
+        //     if (error) {
+        //         setError(dbError);
+        //         return;
+        //     }
+        //     setMapData(dbMap);
+        // });
+
+        setMapData({
+            dmId,
+            url: 'https://i.pinimg.com/originals/76/af/fc/76affcc8c6157a3a9a1a5424a87ab57d.jpg',
+            playerId: '1234'
+        });
     });
 
     const copyLink = () => {
         const el = document.createElement('textarea');
-        el.value = 'TODOLINK/' + playerId;
+        el.value = 'TODOLINK/' + mapData.playerId;
         document.body.appendChild(el);
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
     }
 
-    const title = `Dungeon Goggles (DM) ${url ? '': 'loading ...'}`;
+    const title = `Dungeon Goggles (DM) ${mapData || error ? '': 'loading ...'}`;
 
-    const playerMapLink = playerId && (
+    const playerMapLink = mapData && mapData.playerId && (
         <Tooltip title='Copy Player Link'>
             <IconButton color='inherit' onClick={copyLink}>
                 <Badge color='secondary'>
