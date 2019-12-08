@@ -1,9 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const os = require('os');
+const bodyParser = require('body-parser');
+const { create } = require('./create');
 
 const app = express();
 
 app.use(express.static('dist'));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     // retorna index
@@ -12,13 +16,6 @@ app.get('/', (req, res) => {
 
 app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
 
-app.post('/api/create', (req, res) => {
-    const idDm = 123;
-    const idPl = 321;
-
-    // salva banco
-
-    res.send({ idDm, idPl });
-});
+app.post('/api/create', async (req, res) => await create(req, res));
 
 app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));

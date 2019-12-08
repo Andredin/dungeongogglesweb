@@ -10,8 +10,12 @@ export const Home = () => {
     const [url, setURL] = useState(0);
 
     const create = async () => {
-        const data = { url : url }
-        const res = await fetch('/api/create', { method: 'POST', body: JSON.stringify(data)});
+        const data = { url: url }
+        const res = await fetch('/api/create', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
         const mapData = await res.json();
         history.push(`/dm/${mapData.idDm}`);
     }
