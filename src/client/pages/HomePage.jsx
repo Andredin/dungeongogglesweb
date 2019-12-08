@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Grid, TextField, AppBar, Toolbar, Typography } from '@material-ui/core';
 import MapIcon from '@material-ui/icons/Map';
 
-export const Home = () => {
+export const HomePage = () => {
     const history = useHistory();
     const [url, setURL] = useState(0);
 

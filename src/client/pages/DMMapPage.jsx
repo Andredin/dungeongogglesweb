@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from "react-router-dom";
-import db from './utils/db';
+import db from '../utils/db';
 
 import LinkIcon from '@material-ui/icons/Link';
 import { Grid, AppBar, Toolbar, Typography, Tooltip, Badge, IconButton } from '@material-ui/core';
@@ -10,7 +10,7 @@ import { Rectangle } from 'paper';
 
 let subscribed = false;
 
-export const Map = () => {
+export const DMMapPage = () => {
     const { dmId } = useParams()
     const [grid, setGrid] = useState([[1, 1, 1, 1, 1], [0, 1, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0]])
     const [url, setUrl] = useState(null);

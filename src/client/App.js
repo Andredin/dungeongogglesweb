@@ -7,8 +7,8 @@ import {
     Switch
 } from 'react-router-dom';
 
-import { Home } from './Home';
-import { Map } from './Map';
+import { HomePage } from './pages/HomePage';
+import { DMMapPage } from './pages/DMMapPage';
 
 export default class App extends Component {
     render() {
@@ -17,10 +17,10 @@ export default class App extends Component {
                 <div style={{ height: '100%' }}>
                     <Switch>
                         <Route exact path='/'>
-                            <Home />
+                            <HomePage />
                         </Route>
                         <Route exact path='/dm/:dmId'>
-                            <Map />
+                            <DMMapPage />
                         </Route>
                     </Switch>
                 </div>
