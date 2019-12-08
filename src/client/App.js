@@ -7,8 +7,6 @@ import {
     Switch
 } from 'react-router-dom';
 
-import { createMuiTheme } from '@material-ui/core/styles';
-
 import { Home } from './Home';
 import { Map } from './Map';
 

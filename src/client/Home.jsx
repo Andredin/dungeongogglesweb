@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
-import { Grid, TextField, AppBar, Toolbar, Typography, Hidden } from '@material-ui/core';
+import { Grid, TextField, AppBar, Toolbar, Typography } from '@material-ui/core';
 import MapIcon from '@material-ui/icons/Map';
 
 export const Home = () => {
