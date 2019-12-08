@@ -1,6 +1,18 @@
+require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+if(!process.env.CLIENT_APPLICATION_CREDENTIALS) {
+  throw "missing CLIENT_APPLICATION_CREDENTIALS env var";
+}
+if(!fs.existsSync(process.env.CLIENT_APPLICATION_CREDENTIALS)) {
+  throw "CLIENT_APPLICATION_CREDENTIALS env var is not a valid path";
+}
+
+const firebaseCredentials = JSON.stringify(require(process.env.CLIENT_APPLICATION_CREDENTIALS));
 
 const outputDirectory = 'dist';
 
@@ -45,6 +57,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico'
+    }),
+    new webpack.DefinePlugin({
+      FIREBASE_CONFIG: firebaseCredentials
     })
   ]
 };

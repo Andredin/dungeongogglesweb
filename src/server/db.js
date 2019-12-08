@@ -1,17 +1,17 @@
 const admin = require('firebase-admin');
 const fs = require('fs');
 
-if(!process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    throw "missing GOOGLE_APPLICATION_CREDENTIALS env var";
+if(!process.env.SERVER_APPLICATION_CREDENTIALS) {
+    throw "missing SERVER_APPLICATION_CREDENTIALS env var";
 }
-if(!fs.existsSync(process.env.GOOGLE_APPLICATION_CREDENTIALS)) {
-    throw "GOOGLE_APPLICATION_CREDENTIALS env var is not a valid path";
+if(!fs.existsSync(process.env.SERVER_APPLICATION_CREDENTIALS)) {
+    throw "SERVER_APPLICATION_CREDENTIALS env var is not a valid path";
 }
 
-const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS); 
+const firebaseCredentials = Object.freeze(require(process.env.SERVER_APPLICATION_CREDENTIALS)); 
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(firebaseCredentials)
 });
 
 module.exports = admin.firestore();
