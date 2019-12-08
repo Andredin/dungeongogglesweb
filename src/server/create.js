@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
         const dmId = uuid();
         console.log(Firestore)
         const now = new Date();
-        const document = db.doc(`maps/map-${now.getTime()}-${dmId}`);
+        const document = db.doc(`maps/map-${dmId}`);
     
         await document.set({
             dmId: dmId,

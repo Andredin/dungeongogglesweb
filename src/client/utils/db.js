@@ -9,18 +9,8 @@ const db = firebase.firestore();
 const subscribeToDmMap = (dmId, cb) => {
     if(!dmId) throw "Missing dm map id";
 
-    const maps = db.collection("maps");
-
-    const query = maps.where('dmId', '==', dmId);
-
-    query.onSnapshot(snapshot => {
-        if(snapshot.empty) {
-            cb("Map not found");
-            return;
-        }
-        const data = snapshot.docs[0].data();
-        console.log(data);
-        cb(null, data);
+    db.collection("maps").doc("map-" + dmId).onSnapshot(snapshot => {
+        snapshot.exists ? cb(null, snapshot.data()) : cb("Map not found");
     });
 }
 
