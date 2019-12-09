@@ -8,8 +8,6 @@ import { Grid, AppBar, Toolbar, Typography, Tooltip, Badge, IconButton } from '@
 import { paper, Group, Item, Layer, Path, PointText, Raster, Point } from 'paper/dist/paper-core'
 import { Rectangle } from 'paper';
 
-let subscribed = false;
-
 export const DMMapPage = () => {
     const { dmId } = useParams()
     const [grid, setGrid] = useState([[1, 1, 1, 1, 1], [0, 1, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0]])
@@ -18,9 +16,7 @@ export const DMMapPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if(subscribed) return;
-        subscribed = true;
-        // db.subscribeToDmMap(dmId, (dbError, dbMap) => {
+        // const unsubscribe = db.subscribeToDmMap(dmId, (dbError, dbMap) => {
         //     if (error) {
         //         setError(dbError);
         //         return;
@@ -29,10 +25,12 @@ export const DMMapPage = () => {
         //     setUrl(dbMap.url);
         //     setPlayerId(dbMap.playerId);
         // });
+        // return () => unsubscribe();
 
         setUrl('https://i.pinimg.com/originals/76/af/fc/76affcc8c6157a3a9a1a5424a87ab57d.jpg');
         setPlayerId('1234');
-    });
+        return () => {};
+    }, [dmId]);
 
     const copyLink = () => {
         const el = document.createElement('textarea');
