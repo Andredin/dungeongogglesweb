@@ -46,8 +46,8 @@ export const GridCanvas = (props) => {
                     const show = gridArr[j][i] == 0
                     const rectHighlight = rectangle
                     rectangle.onMouseDown = function() { toggleGrid(iToggle, jToggle) }
-                    rectangle.onMouseEnter = function() { highlightRectangle(rectHighlight) }
-                    rectangle.onMouseLeave = function() { unHighlightRectangle(show, rectHighlight) }
+                    rectangle.onMouseEnter = function(e) { e.stopPropagation(); highlightRectangle(rectHighlight); }
+                    rectangle.onMouseLeave = function(e) { e.stopPropagation(); unHighlightRectangle(show, rectHighlight) }
                 }
 
                 // Styles
