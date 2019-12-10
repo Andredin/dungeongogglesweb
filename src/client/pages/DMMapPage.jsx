@@ -31,7 +31,9 @@ export const DMMapPage = () => {
 
     const copyLink = () => {
         const el = document.createElement('textarea');
-        el.value = 'TODOLINK/' + playerId;
+        //TODO: create proper link to app
+        const host = window.location.origin
+        el.value = host + '/player/' + playerId;
         document.body.appendChild(el);
         el.select();
         document.execCommand('copy');

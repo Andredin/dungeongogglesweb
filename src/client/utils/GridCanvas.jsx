@@ -4,6 +4,8 @@ import { Layer, Path, Point, PaperScope } from 'paper/dist/paper-core'
 import db from './db';
 
 export const GridCanvas = (props) => {
+    const readOnly = props.dmId == null
+
     useEffect(() => {
         drawGrid()
         return () => {}
@@ -35,18 +37,22 @@ export const GridCanvas = (props) => {
                 var rectY = initY + (j * rectangleSizeY)
                 var rectangle = new Path.Rectangle(new Point(rectX, rectY), new Point(rectX + rectangleSizeX, rectY + rectangleSizeY))
                 
-                // Events
-                const iToggle = i
-                const jToggle = j
                 const show = gridArr[j][i] == 0
-                const rectHighlight = rectangle
-                rectangle.onMouseDown = function() { toggleGrid(iToggle, jToggle) }
-                rectangle.onMouseEnter = function() { highlightRectangle(rectHighlight) }
-                rectangle.onMouseLeave = function() { unHighlightRectangle(show, rectHighlight) }
+                
+                // Events
+                if(!readOnly){
+                    const iToggle = i
+                    const jToggle = j
+                    const show = gridArr[j][i] == 0
+                    const rectHighlight = rectangle
+                    rectangle.onMouseDown = function() { toggleGrid(iToggle, jToggle) }
+                    rectangle.onMouseEnter = function() { highlightRectangle(rectHighlight) }
+                    rectangle.onMouseLeave = function() { unHighlightRectangle(show, rectHighlight) }
+                }
 
                 // Styles
                 rectangle.style = {
-                    strokeColor: 'black',
+                    strokeColor: readOnly? 'white' : 'black',
                     strokeWidth: 2,
                     fillColor: 'white'
                 }
@@ -56,7 +62,7 @@ export const GridCanvas = (props) => {
     }
 
     const getOpacity = (show) => {
-        return show? 0.5 : 0;
+        return show? (readOnly? 1 : 0.5) : 0;
     }
 
     const toggleGrid = (i, j) => {

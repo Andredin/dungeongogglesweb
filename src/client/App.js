@@ -9,6 +9,7 @@ import {
 
 import { HomePage } from './pages/HomePage';
 import { DMMapPage } from './pages/DMMapPage';
+import { PlayerMapPage } from './pages/PlayerMapPage';
 
 export default class App extends Component {
     render() {
@@ -21,6 +22,9 @@ export default class App extends Component {
                         </Route>
                         <Route exact path='/dm/:dmId'>
                             <DMMapPage />
+                        </Route>
+                        <Route exact path='/player/:playerId'>
+                            <PlayerMapPage />
                         </Route>
                     </Switch>
                 </div>

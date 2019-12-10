@@ -1,5 +1,5 @@
 const defaultGrid = (x, y) => {
-    const xGrid = x? x : 15
+    const xGrid = x? x : 20
     const yGrid = y? y : xGrid
     var grid = new Array(yGrid)
 
