@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useParams } from "react-router-dom";
 import db from '../utils/db';
+import gridUtils from '../utils/grid';
 
 import LinkIcon from '@material-ui/icons/Link';
 import { Grid, AppBar, Toolbar, Typography, Tooltip, Badge, IconButton } from '@material-ui/core';
@@ -11,6 +12,7 @@ export const DMMapPage = () => {
     const { dmId } = useParams()
     const [playerId, setPlayerId] = useState(null)
     const [url, setUrl] = useState(null)
+    const [grid, setGrid] = useState(null)
     const [error, setError] = useState(null)
 
     useEffect(() => {
@@ -19,9 +21,9 @@ export const DMMapPage = () => {
                 setError(dbError)
                 return
             }
-            console.log(dbMap)
             setPlayerId(dbMap.playerId)
             setUrl(dbMap.url)
+            setGrid(dbMap.grid != null? dbMap.grid : gridUtils.defaultGrid())
         })
 
         return () => {};
@@ -59,7 +61,7 @@ export const DMMapPage = () => {
                 </AppBar>
             </Grid>
             <Grid item xs={12} style={{height: '92%'}}>
-                <MapCanvas dmId={dmId} url={url} height='92%' width='100%'></MapCanvas>
+                <MapCanvas dmId={dmId} url={url} grid={grid} height='92%' width='100%'></MapCanvas>
             </Grid>
         </Grid>
     );

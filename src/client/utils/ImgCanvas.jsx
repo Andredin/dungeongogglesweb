@@ -2,7 +2,13 @@ import React, { useEffect } from 'react'
 
 import { Layer, Raster, PaperScope } from 'paper/dist/paper-core'
 
-export const ImgCanvas = (props) => {
+function areEqual(prevProps, nextProps) {
+    return prevProps.url == nextProps.url 
+        && prevProps.height == nextProps.height 
+        && prevProps.width == nextProps.width
+}
+
+export const ImgCanvas = React.memo(function ImgCanvas(props) {
     useEffect(() => {
         drawImg()
         return () => {};
@@ -41,4 +47,4 @@ export const ImgCanvas = (props) => {
     return (
         <canvas id='imgCanvas' style={{zIndex: 0, position: 'absolute', height: props.height, width: props.width, bottom: 13}}></canvas>
     );
-}
+}, areEqual)

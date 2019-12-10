@@ -4,40 +4,13 @@ import { Layer, Path, Point, PaperScope } from 'paper/dist/paper-core'
 import db from './db';
 
 export const GridCanvas = (props) => {
-    const [grid, setGrid] = useState(null)
-
     useEffect(() => {
-        const unsubscribe = db.subscribeToDmMap(props.dmId, (dbError, dbMap) => {
-            if (dbError) {
-                setError(dbError)
-                return
-            }
-            console.log(dbMap)
-            setGrid(dbMap.grid != null? dbMap.grid : defaultGrid())
-            
-        })
-
         drawGrid()
         return () => {}
     });
 
-    const defaultGrid = () => {
-        return JSON.stringify([
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ])
-    }
-
     const drawGrid = () => {
-        if(grid == null){
+        if(props.grid == null){
             return
         }
 
@@ -46,16 +19,17 @@ export const GridCanvas = (props) => {
         var paper = new PaperScope()
         paper.setup(canvas)
 
-        const gridArr = JSON.parse(grid) 
+        const gridArr = JSON.parse(props.grid) 
         const mapCoordsObj = JSON.parse(props.mapCoords)
         var gridLayer = new Layer()
-        var gridSize = gridArr.length
-        var rectangleSizeX = (mapCoordsObj.end.x - mapCoordsObj.start.x) / gridSize
-        var rectangleSizeY = (mapCoordsObj.end.y - mapCoordsObj.start.y) / gridSize
+        var gridSizeY = gridArr.length
+        var gridSizeX = gridArr[0].length
+        var rectangleSizeX = (mapCoordsObj.end.x - mapCoordsObj.start.x) / gridSizeX
+        var rectangleSizeY = (mapCoordsObj.end.y - mapCoordsObj.start.y) / gridSizeY
         var initX = mapCoordsObj.start.x
         var initY = mapCoordsObj.start.y
-        for(var i = 0; i < gridSize; i++){
-            for(var j = 0; j < gridSize; j++){
+        for(var i = 0; i < gridSizeX; i++){
+            for(var j = 0; j < gridSizeY; j++){
                 // Dimensions
                 var rectX = initX + (i * rectangleSizeX)
                 var rectY = initY + (j * rectangleSizeY)
@@ -73,33 +47,36 @@ export const GridCanvas = (props) => {
                 // Styles
                 rectangle.style = {
                     strokeColor: 'black',
-                    strokeWidth: 5,
+                    strokeWidth: 2,
                     fillColor: 'white'
                 }
-                rectangle.opacity = show? 0.5 : 0
+                rectangle.opacity = getOpacity(show)
             }
         }
     }
 
+    const getOpacity = (show) => {
+        return show? 0.5 : 0;
+    }
+
     const toggleGrid = (i, j) => {
-        var newGrid = JSON.parse(grid)
+        var newGrid = JSON.parse(props.grid)
         if(newGrid[j][i] == 0){
             newGrid[j][i] = 1
         } else {
             newGrid[j][i] = 0
         }
 
-        setGrid(JSON.stringify(newGrid))
         db.saveMapChanges(props.dmId, {grid: JSON.stringify(newGrid)})
     }
 
     const highlightRectangle = (rectangle) => {
-        rectangle.opacity = 0.25
+        rectangle.opacity = getOpacity(true) / 2
         document.getElementById('gridCanvas').style.cursor = 'pointer'
     }
 
     const unHighlightRectangle = (show, rectangle) => {
-        rectangle.opacity = show? 0.5 : 0
+        rectangle.opacity = getOpacity(show)
         document.getElementById('gridCanvas').style.cursor = 'default'
     }
 
