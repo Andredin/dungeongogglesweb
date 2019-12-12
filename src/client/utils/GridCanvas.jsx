@@ -53,7 +53,7 @@ export const GridCanvas = (props) => {
                 // Styles
                 rectangle.style = {
                     strokeColor: readOnly? 'white' : 'black',
-                    strokeWidth: 2,
+                    strokeWidth: 1,
                     fillColor: 'white'
                 }
                 rectangle.opacity = getOpacity(show)
@@ -79,12 +79,14 @@ export const GridCanvas = (props) => {
     const highlightRectangle = (rectangle) => {
         //TODO: improve performance
         //rectangle.opacity = getOpacity(true) / 2
+        rectangle.strokeWidth = 3
         document.getElementById('gridCanvas').style.cursor = 'pointer'
     }
 
     const unHighlightRectangle = (show, rectangle) => {
         //TODO: improve performance
         //rectangle.opacity = getOpacity(show)
+        rectangle.strokeWidth = 1
         document.getElementById('gridCanvas').style.cursor = 'default'
     }
 

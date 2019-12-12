@@ -12,7 +12,7 @@ export const ImgCanvas = React.memo(function ImgCanvas(props) {
     useEffect(() => {
         drawImg()
         return () => {};
-    });
+    }, [props.url]);
 
     const drawImg = () => {
         if(props.url == null){
