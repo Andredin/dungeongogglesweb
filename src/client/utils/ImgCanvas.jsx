@@ -1,6 +1,7 @@
+import { Layer, PaperScope, Raster } from 'paper/dist/paper-core'
 import React, { useEffect } from 'react'
 
-import { Layer, Raster, PaperScope } from 'paper/dist/paper-core'
+import gridUtils from './grid'
 
 function areEqual(prevProps, nextProps) {
     return prevProps.url == nextProps.url 
@@ -28,11 +29,11 @@ export const ImgCanvas = React.memo(function ImgCanvas(props) {
         var mapLayer = new Layer()
         var map = new Raster({
             source: props.url,
-            position: new paper.Point(canvas.width/2, canvas.height/2)
+            position: new paper.Point(gridUtils.getDimension(canvas.width)/2, gridUtils.getDimension(canvas.height)/2)
         });
         map.onLoad = function() {
             // Map scale
-            const scaleFactor = Math.min(canvas.width / map.width, canvas.height / map.height)
+            const scaleFactor = Math.min(gridUtils.getDimension(canvas.width) / map.width, gridUtils.getDimension(canvas.height) / map.height)
             map.scale(scaleFactor)
 
             // Map Coords

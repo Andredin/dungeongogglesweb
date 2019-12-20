@@ -13,6 +13,11 @@ const defaultGrid = (x, y) => {
     return JSON.stringify(grid)
 }
 
+const getDimension = (dimension) => {
+    return dimension / window.devicePixelRatio
+}
+
 export default {
-    defaultGrid
+    defaultGrid,
+    getDimension
 }
