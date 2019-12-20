@@ -12,7 +12,6 @@ ENV CLIENT_APPLICATION_CREDENTIALS=$firebase_client_creds
 COPY webpack.config.js ./
 COPY src ./src
 COPY public ./public
-COPY dist ./dist
 COPY .babelrc ./
 
 RUN npm run build
