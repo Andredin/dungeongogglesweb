@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { Layer, PaperScope, Path, Point } from 'paper/dist/paper-core'
+import React, { useEffect, useState } from 'react'
 
-import { Layer, Path, Point, PaperScope } from 'paper/dist/paper-core'
 import db from './db';
 
 export const GridCanvas = (props) => {
@@ -78,15 +78,13 @@ export const GridCanvas = (props) => {
 
     const highlightRectangle = (rectangle) => {
         //TODO: improve performance
-        //rectangle.opacity = getOpacity(true) / 2
-        rectangle.strokeWidth = 3
+        rectangle.opacity = getOpacity(true) / 2
         document.getElementById('gridCanvas').style.cursor = 'pointer'
     }
 
     const unHighlightRectangle = (show, rectangle) => {
         //TODO: improve performance
-        //rectangle.opacity = getOpacity(show)
-        rectangle.strokeWidth = 1
+        rectangle.opacity = getOpacity(show)
         document.getElementById('gridCanvas').style.cursor = 'default'
     }
 
