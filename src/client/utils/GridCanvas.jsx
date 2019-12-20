@@ -78,13 +78,15 @@ export const GridCanvas = (props) => {
 
     const highlightRectangle = (rectangle) => {
         //TODO: improve performance
-        rectangle.opacity = getOpacity(true) / 2
+        //rectangle.opacity = getOpacity(true) / 2
+        rectangle.strokeWidth = 3
         document.getElementById('gridCanvas').style.cursor = 'pointer'
     }
 
     const unHighlightRectangle = (show, rectangle) => {
         //TODO: improve performance
-        rectangle.opacity = getOpacity(show)
+        //rectangle.opacity = getOpacity(show)
+        rectangle.strokeWidth = 1
         document.getElementById('gridCanvas').style.cursor = 'default'
     }
 
