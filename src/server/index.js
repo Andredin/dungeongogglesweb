@@ -11,6 +11,11 @@ const app = express();
 app.use(express.static('dist'));
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 app.post('/api/create', async (req, res) => await create(req, res));
 
 app.get('/api/getDmId/:playerId', async (req, res) => {
