@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const firebaseCredentials = JSON.stringify(require(process.env.CLIENT_APPLICATION_CREDENTIALS));
+const firebaseCredentials = Buffer.from(process.env.CLIENT_APPLICATION_CREDENTIALS, 'base64').toString();
 
 const outputDirectory = 'dist';
 

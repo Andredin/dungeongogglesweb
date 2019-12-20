@@ -4,16 +4,12 @@ const os = require('os');
 const bodyParser = require('body-parser');
 const { create } = require('./create');
 const db = require('./db');
+const path = require('path');
 
 const app = express();
 
 app.use(express.static('dist'));
 app.use(bodyParser.json());
-
-app.get('/', (req, res) => {
-    // retorna index
-    res.send("Index");
-});
 
 app.post('/api/create', async (req, res) => await create(req, res));
 
@@ -40,4 +36,10 @@ app.get('/api/getDmId/:playerId', async (req, res) => {
     }
 })
 
-app.listen(process.env.PORT || 8080, () => console.log(`Listening on port ${process.env.PORT || 8080}!`));
+const indexPath = path.join(__dirname, '/../../dist/index.html');
+app.get('*', function (req, res) {
+    res.sendFile(indexPath);
+});
+
+const PORT = process.env.PORT || 4280;
+app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
